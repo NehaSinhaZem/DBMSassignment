@@ -1,0 +1,26 @@
+select film.title from film inner join film_category fc on film.film_id
+inner join category cat on fc.category_id and cat.name='comedy' and film.rating='PG-13';
+
+SELECT top 3 film.title FROM rental ren inner join inventory inv on ren.inventory_id
+inner join film on inv.film_id and film.film_id in (
+select film.id from film inner join film_category fc on film.film_id
+inner join category cat on fc.category_id and cat.name='horror' )
+ group by ren.inventory_id order by count(ren.rental_id) desc ;
+
+select customer.* from customer inner join address on address_id inner join 
+city on city_id inner join country on country_id and country='India' and 
+customer_id in (select customer_id from rental ren inner join inventory inv on 
+ren.inventory_id inner join film on inv.film_id and film.film_id in (
+select film.id from film inner join film_category fc on film.film_id
+inner join category cat on fc.category_id and cat.name='sports') );
+
+select customer.* from customer inner join address on address_id inner join 
+city on city_id inner join country on country_id and country='Canada' and 
+customer_id in (select customer_id from rental ren inner join inventory inv on 
+ren.inventory_id inner join film on inv.film_id and film.film_id in (
+select film_id from film_actor inner join actor on actor_id and 
+concat(actor.first_name,actor.last_name,' ')='NICK WAHLBERG') );
+
+
+select count(film_id) from film_actor inner join actor on actor_id and  
+concat(actor.first_name,actor.last_name,' ')='SEAN WILLIAMS') ;

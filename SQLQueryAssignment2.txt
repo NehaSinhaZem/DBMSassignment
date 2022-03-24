@@ -1,0 +1,22 @@
+select count(film_id) from film where special_features='Deleted Scenes';
+
+select count(inv.film_id) from inventory inv inner join rental rent on inv.inventory_id 
+and inv.film_id in (select fc.film_id from film_category fc inner join category
+on fc.category_id and category.name='sci-fi') and inv.store_id in (
+select staff.store_id from store inner join staff on store.manager_staff_id and 
+concat(first_name,last_name," ")='Jon Stephens') ;
+
+select sum(pay.amount) from payment pay inner join rental rent on pay.rental_id 
+inner join inventory inv on rent.inventory_id and inv.film_id in (
+select fc.film_id from film_category fc inner join category on fc.category_id 
+and category.name='Animation');
+
+select top 3 category.name from category inner join film_category fc on fc.category_id
+inner join film on fc.film_id and fc.film_id in (select film.film_id from film 
+inner join inventory inv on inv.film_id inner join rental rent on inv.inventory_id 
+and rent.customer_id in (select rent.customer_id from rental rent inner join 
+customer on rent.customer_id and concat(first_name,last_name," ")='PATRICIA JOHNSON';
+
+select count(film.film_id) from film inner join inventory inv on film.film_id 
+inner join rental rent on inv.inventory_id inner join customer on rent.customer_id
+and concat(first_name,last_name," ")='SUSAN WILSON' and film.rating='R';
